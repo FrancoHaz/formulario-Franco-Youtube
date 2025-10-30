@@ -3,85 +3,147 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>César Franco IA — Diagnóstico gratuito</title>
+  <title>César Franco IA — Automatización para tu negocio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
-      --navy:#0A1A3C;
-      --accent:#007BFF;
+      --navy: #050816;
+      --accent: #2F80ED;
     }
-    body{
-      background: radial-gradient(1200px 600px at 20% 10%, rgba(0,123,255,.15), transparent 60%),
-                  radial-gradient(1000px 800px at 80% 30%, rgba(10,26,60,.6), transparent 65%),
-                  #0A1A3C;
+    body {
+      background: radial-gradient(circle at top, rgba(47, 128, 237, 0.35), rgba(5, 8, 22, 1) 40%),
+                  linear-gradient(160deg, rgba(5,8,22,1) 0%, rgba(5,8,22,0.6) 40%, rgba(5,8,22,1) 80%);
+      min-height: 100vh;
+    }
+    /* fondo en movimiento */
+    .bg-motion {
+      position: fixed;
+      inset: -20% -10%;
+      background: radial-gradient(circle, rgba(47, 128, 237, 0.4) 0%, rgba(5, 8, 22, 0) 55%),
+                  radial-gradient(circle, rgba(111, 66, 193, 0.25) 5%, rgba(5, 8, 22, 0) 60%);
+      filter: blur(80px);
+      animation: floaty 16s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: -1;
+    }
+    @keyframes floaty {
+      0% { transform: translateY(0) translateX(0) scale(1); }
+      100% { transform: translateY(60px) translateX(30px) scale(1.05); }
+    }
+    .card-glow {
+      box-shadow: 0 0 35px rgba(255, 255, 255, 0.18), 0 22px 35px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(16px);
     }
   </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-6">
-  <main class="w-full max-w-xl">
-    <section class="bg-white/5 backdrop-blur rounded-2xl shadow-xl border border-white/10 overflow-hidden">
-      <header class="px-8 pt-8 pb-4">
-        <h1 class="text-2xl font-semibold text-white">Agenda tu diagnóstico gratuito</h1>
-        <p class="mt-2 text-white/80">Transforma tu negocio con IA y automatización. César te responderá personalmente.</p>
-      </header>
+<body class="relative flex items-center justify-center py-8 px-4">
+  <div class="bg-motion" aria-hidden="true"></div>
+
+  <main class="w-full max-w-md mx-auto flex flex-col gap-6">
+    <!-- cabecera con foto -->
+    <div class="flex flex-col items-center text-center gap-3">
+      <img
+        src="https://res.cloudinary.com/dytb3hwko/image/upload/c_crop,ar_1:1/v1761832010/realistic_portrait_of_a_man_with_my_cmfrci.jpg"
+        alt="César Franco IA"
+        class="w-28 h-28 rounded-full object-cover border-2 border-white/40 shadow-lg shadow-black/30"
+        loading="lazy"
+      />
+      <p class="text-white/70 text-xs tracking-[0.35em] uppercase">
+        Consultor IA &amp; Automatización
+      </p>
+      <h1 class="text-white text-2xl font-semibold leading-tight">
+        César Franco IA
+      </h1>
+      <p class="text-white/60 text-sm max-w-sm">
+        Automatizo procesos con IA, n8n y Shopify para que vendas más y respondas más rápido. Déjame tu contacto y te mando el diagnóstico.
+      </p>
+    </div>
+
+    <!-- formulario netlify -->
+    <section class="bg-white/5 border border-white/10 rounded-2xl p-5 card-glow">
       <form
         name="contacto-cesar-franco-ia"
         method="POST"
         data-netlify="true"
         netlify-honeypot="bot-field"
         action="/gracias.html"
-        class="px-8 pb-8 space-y-6"
-        aria-describedby="aviso-privacidad">
+        class="flex flex-col gap-4"
+        aria-describedby="aviso-privacidad"
+      >
+        <!-- IMPORTANTES PARA NETLIFY -->
         <input type="hidden" name="form-name" value="contacto-cesar-franco-ia" />
         <input type="hidden" name="bot-field" />
-        <div>
-          <label for="nombre" class="block text-sm font-medium text-white/90">Nombre completo</label>
-          <input id="nombre" name="nombre" type="text" required
-                 class="mt-2 w-full rounded-xl bg-white/10 text-white placeholder-white/50 border border-white/20 focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] px-4 py-3"
-                 placeholder="Tu nombre" />
-        </div>
-        <div>
-          <label for="email" class="block text-sm font-medium text-white/90">Correo electrónico</label>
-          <input id="email" name="email" type="email" required
-                 class="mt-2 w-full rounded-xl bg-white/10 text-white placeholder-white/50 border border-white/20 focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] px-4 py-3"
-                 placeholder="nombre@empresa.com" />
-        </div>
-        <div>
-          <label for="tipo" class="block text-sm font-medium text-white/90">Tipo de proyecto</label>
-          <select id="tipo" name="tipo"
-                  class="mt-2 w-full rounded-xl bg-white/10 text-white border border-white/20 focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] px-4 py-3">
-            <option class="bg-[var(--navy)]" value="automatizacion">Automatización (n8n / WhatsApp / Google)</option>
-            <option class="bg-[var(--navy)]" value="web">Web / MenYu (carta digital)</option>
-            <option class="bg-[var(--navy)]" value="ia-personalizada">IA personalizada (agentes / prompts)</option>
-            <option class="bg-[var(--navy)]" value="otro">Otro</option>
+
+        <label class="flex flex-col gap-2">
+          <span class="text-white/90 text-sm">Nombre completo</span>
+          <input
+            name="nombre"
+            type="text"
+            required
+            class="bg-white/10 text-white rounded-xl px-4 py-3 border border-white/10 focus:border-[var(--accent)] focus:outline-none"
+            placeholder="Tu nombre"
+          />
+        </label>
+
+        <label class="flex flex-col gap-2">
+          <span class="text-white/90 text-sm">Correo electrónico</span>
+          <input
+            name="email"
+            type="email"
+            required
+            class="bg-white/10 text-white rounded-xl px-4 py-3 border border-white/10 focus:border-[var(--accent)] focus:outline-none"
+            placeholder="nombre@empresa.com"
+          />
+        </label>
+
+        <label class="flex flex-col gap-2">
+          <span class="text-white/90 text-sm">¿Qué quieres automatizar?</span>
+          <select
+            name="tipo"
+            class="bg-white/10 text-white rounded-xl px-4 py-3 border border-white/10 focus:border-[var(--accent)] focus:outline-none"
+          >
+            <option value="automatizacion" class="bg-[#050816]">Automatización (n8n / WhatsApp / Google)</option>
+            <option value="shopify" class="bg-[#050816]">Shopify / eCommerce</option>
+            <option value="ia" class="bg-[#050816]">Agentes de IA</option>
+            <option value="otro" class="bg-[#050816]">Otro</option>
           </select>
-        </div>
-        <div>
-          <label for="mensaje" class="block text-sm font-medium text-white/90">Mensaje</label>
-          <textarea id="mensaje" name="mensaje" rows="5" required
-                    class="mt-2 w-full rounded-xl bg-white/10 text-white placeholder-white/50 border border-white/20 focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] px-4 py-3"
-                    placeholder="Cuéntame en 2-3 líneas qué quieres automatizar y el resultado esperado"></textarea>
-        </div>
-        <div class="flex items-start gap-3">
-          <input id="consent" name="consent" type="checkbox" required
-                 class="mt-1 h-5 w-5 rounded border-white/30 bg-white/10 text-[var(--accent)] focus:ring-[var(--accent)]" />
-          <label for="consent" class="text-sm text-white/80">
-            Acepto que mis datos se usen para contactarme respecto a este diagnóstico.
-          </label>
-        </div>
-        <div class="pt-2">
-          <button type="submit"
-                  class="w-full rounded-xl bg-[var(--accent)] text-white font-semibold py-3.5 shadow-lg shadow-[rgba(0,123,255,0.35)] transition
-                         hover:brightness-110 focus:outline-none focus:ring-4 focus:ring-[var(--accent)]/40">
-            Agendar diagnóstico gratuito
-          </button>
-        </div>
-        <p id="aviso-privacidad" class="text-xs text-white/60">
-          Protegido por Netlify Forms. No compartimos tus datos con terceros.
+        </label>
+
+        <label class="flex flex-col gap-2">
+          <span class="text-white/90 text-sm">Cuéntame en 1-2 líneas</span>
+          <textarea
+            name="mensaje"
+            rows="3"
+            required
+            class="bg-white/10 text-white rounded-xl px-4 py-3 border border-white/10 focus:border-[var(--accent)] focus:outline-none"
+            placeholder="Ej: quiero que n8n lea mis pedidos y avise por Telegram"
+          ></textarea>
+        </label>
+
+        <label class="flex gap-3 items-start">
+          <input
+            type="checkbox"
+            name="consent"
+            required
+            class="mt-1 h-4 w-4 rounded border-white/30 bg-white/10"
+          />
+          <span class="text-xs text-white/70">Acepto que me contactes sobre este diagnóstico.</span>
+        </label>
+
+        <button
+          type="submit"
+          class="mt-1 w-full py-3 rounded-xl bg-white text-[var(--navy)] font-semibold shadow-lg shadow-white/35 hover:opacity-95 transition"
+        >
+          Enviarme el diagnóstico
+        </button>
+
+        <p id="aviso-privacidad" class="text-[0.65rem] text-white/45 text-center mt-1">
+          Protegido por Netlify Forms. No compartimos tus datos.
         </p>
       </form>
     </section>
-    <p class="mt-6 text-center text-white/60 text-sm">© César Franco IA · Automatización &amp; AI Consulting</p>
+
+    <p class="text-center text-white/35 text-xs">© 2025 · César Franco IA</p>
   </main>
 </body>
 </html>
