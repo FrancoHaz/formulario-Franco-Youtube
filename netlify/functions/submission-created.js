@@ -1,8 +1,9 @@
 export const handler = async (event) => {
   try {
+    const { N8N_WEBHOOK_URL, WEBHOOK_TOKEN } = process.env;
     const payload = JSON.parse(event.body);
-    const submission = payload && payload.payload && payload.payload.data ? payload.payload : payload;
-    const WEBHOOK_URL = "https://n8n-fumx.onrender.com/webhook/5d1377c1-bcf8-4ade-bb45-3705e4dbd8a3";
+    const submission = payload?.payload?.data ? payload.payload : payload;
+
     const out = {
       formName: submission.form_name || "contacto-cesar-franco-ia",
       submittedAt: submission.created_at || new Date().toISOString(),
@@ -10,15 +11,18 @@ export const handler = async (event) => {
       remoteIP: submission.remote_ip || null,
       userAgent: submission.user_agent || null,
     };
-    await fetch(WEBHOOK_URL, {
+
+    await fetch(N8N_WEBHOOK_URL, {
       method: "POST",
-      headers: {"Content-Type":"application/json"},
+      headers: {
+        "Content-Type": "application/json",
+        "x-webhook-token": WEBHOOK_TOKEN
+      },
       body: JSON.stringify(out),
     });
-    console.log("Submission forwarded to webhook:", out.formName);
+
     return { statusCode: 200, body: JSON.stringify({ ok: true }) };
-  } catch (err) {
-    console.error("Webhook forward error:", err);
-    return { statusCode: 500, body: JSON.stringify({ ok: false, error: String(err) }) };
+  } catch (e) {
+    return { statusCode: 500, body: JSON.stringify({ ok: false }) };
   }
 };
